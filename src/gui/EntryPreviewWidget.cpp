@@ -189,28 +189,31 @@ void EntryPreviewWidget::setPasswordVisible(bool state)
 
 void EntryPreviewWidget::setEntryNotesVisible(bool state)
 {
-    setNotesVisible(m_ui->entryNotesLabel, m_currentEntry->notes(), state);
+    setNotesVisible(m_ui->entryNotesTextEdit, m_currentEntry->notes(), state);
 }
 
 void EntryPreviewWidget::setGroupNotesVisible(bool state)
 {
-    setNotesVisible(m_ui->groupNotesLabel, m_currentGroup->notes(), state);
+    setNotesVisible(m_ui->groupNotesTextEdit, m_currentGroup->notes(), state);
 }
 
-void EntryPreviewWidget::setNotesVisible(QLabel* notesLabel, const QString& notes, bool state)
+void EntryPreviewWidget::setNotesVisible(QPlainTextEdit* notesWidget, const QString& notes, bool state)
 {
+    notesWidget->clear();
+
     if (state) {
         // Add html hyperlinks to notes that start with XXXX://
         QString hyperlinkNotes = notes;
-        notesLabel->setText(hyperlinkNotes.replace(QRegExp("(\\w+:\\/\\/\\S+)"), "<a href=\"\\1\">\\1</a>"));
-        notesLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+        hyperlinkNotes.replace("\n", "<br/>");
+        notesWidget->appendHtml(hyperlinkNotes.replace(QRegExp("(\\w+:\\/\\/\\S+)"), "<a href=\"\\1\">\\1</a>"));
+        notesWidget->setTextInteractionFlags(Qt::TextBrowserInteraction);
+        notesWidget->moveCursor(QTextCursor::Start);
+        notesWidget->ensureCursorVisible();
     } else {
-        if (notes.isEmpty()) {
-            notesLabel->setText("");
-        } else {
-            notesLabel->setText(QString("\u25cf").repeated(6));
+        if (!notes.isEmpty()) {
+            notesWidget->setPlainText(QString("\u25cf").repeated(6));
         }
-        notesLabel->setTextInteractionFlags(Qt::NoTextInteraction);
+        notesWidget->setTextInteractionFlags(Qt::NoTextInteraction);
     }
 }
 
@@ -233,7 +236,7 @@ void EntryPreviewWidget::updateEntryGeneralTab()
 
     if (config()->get("security/hidenotes").toBool()) {
         setEntryNotesVisible(false);
-        m_ui->toggleEntryNotesButton->setVisible(!m_ui->entryNotesLabel->text().isEmpty());
+        m_ui->toggleEntryNotesButton->setVisible(!m_ui->entryNotesTextEdit->toPlainText().isEmpty());
         m_ui->toggleEntryNotesButton->setChecked(false);
     } else {
         setEntryNotesVisible(true);
@@ -241,9 +244,9 @@ void EntryPreviewWidget::updateEntryGeneralTab()
     }
 
     if (config()->get("GUI/MonospaceNotes", false).toBool()) {
-        m_ui->entryNotesLabel->setFont(Font::fixedFont());
+        m_ui->entryNotesTextEdit->setFont(Font::fixedFont());
     } else {
-        m_ui->entryNotesLabel->setFont(Font::defaultFont());
+        m_ui->entryNotesTextEdit->setFont(Font::defaultFont());
     }
 
     m_ui->entryUrlLabel->setRawText(m_currentEntry->displayUrl());
@@ -329,7 +332,7 @@ void EntryPreviewWidget::updateGroupGeneralTab()
 
     if (config()->get("security/hidenotes").toBool()) {
         setGroupNotesVisible(false);
-        m_ui->toggleGroupNotesButton->setVisible(!m_ui->groupNotesLabel->text().isEmpty());
+        m_ui->toggleGroupNotesButton->setVisible(!m_ui->groupNotesTextEdit->toPlainText().isEmpty());
         m_ui->toggleGroupNotesButton->setChecked(false);
     } else {
         setGroupNotesVisible(true);
@@ -337,9 +340,9 @@ void EntryPreviewWidget::updateGroupGeneralTab()
     }
 
     if (config()->get("GUI/MonospaceNotes", false).toBool()) {
-        m_ui->groupNotesLabel->setFont(Font::fixedFont());
+        m_ui->groupNotesTextEdit->setFont(Font::fixedFont());
     } else {
-        m_ui->groupNotesLabel->setFont(Font::defaultFont());
+        m_ui->groupNotesTextEdit->setFont(Font::defaultFont());
     }
 }
 

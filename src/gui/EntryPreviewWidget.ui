@@ -486,36 +486,27 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="entryNotesLabel">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
+                 <widget class="QPlainTextEdit" name="entryNotesTextEdit">
+                  <property name="focusPolicy">
+                   <enum>Qt::ClickFocus</enum>
                   </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>30</height>
-                   </size>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
                   </property>
-                  <property name="text">
-                   <string notr="true">notes</string>
+                  <property name="frameShadow">
+                   <enum>QFrame::Plain</enum>
                   </property>
-                  <property name="textFormat">
-                   <enum>Qt::RichText</enum>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignTop</set>
-                  </property>
-                  <property name="wordWrap">
+                  <property name="tabChangesFocus">
                    <bool>true</bool>
                   </property>
-                  <property name="openExternalLinks">
+                  <property name="undoRedoEnabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="readOnly">
                    <bool>true</bool>
                   </property>
                   <property name="textInteractionFlags">
-                   <set>Qt::NoTextInteraction</set>
+                   <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                   </property>
                  </widget>
                 </item>
@@ -1003,27 +994,27 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="groupNotesLabel">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
+                 <widget class="QPlainTextEdit" name="groupNotesTextEdit">
+                  <property name="focusPolicy">
+                   <enum>Qt::ClickFocus</enum>
                   </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>30</height>
-                   </size>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
                   </property>
-                  <property name="text">
-                   <string notr="true">notes</string>
+                  <property name="frameShadow">
+                   <enum>QFrame::Plain</enum>
                   </property>
-                  <property name="alignment">
-                   <set>Qt::AlignTop</set>
-                  </property>
-                  <property name="wordWrap">
+                  <property name="tabChangesFocus">
                    <bool>true</bool>
+                  </property>
+                  <property name="undoRedoEnabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                  <property name="textInteractionFlags">
+                   <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                   </property>
                  </widget>
                 </item>

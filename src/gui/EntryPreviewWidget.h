@@ -28,6 +28,8 @@ namespace Ui
     class EntryPreviewWidget;
 }
 
+class QPlainTextEdit;
+
 class EntryPreviewWidget : public QWidget
 {
     Q_OBJECT
@@ -54,7 +56,7 @@ private slots:
     void setPasswordVisible(bool state);
     void setEntryNotesVisible(bool state);
     void setGroupNotesVisible(bool state);
-    void setNotesVisible(QLabel* notesLabel, const QString& notes, bool state);
+    void setNotesVisible(QPlainTextEdit* notesWidget, const QString& notes, bool state);
 
     void updateGroupHeaderLine();
     void updateGroupGeneralTab();
