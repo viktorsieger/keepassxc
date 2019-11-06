@@ -148,7 +148,7 @@ void DatabaseOpenWidget::load(const QString& filename)
     m_filename = filename;
     m_ui->fileNameLabel->setRawText(m_filename);
 
-    m_ui->comboKeyFile->addItem(tr("Select file..."), -1);
+    m_ui->comboKeyFile->addItem(tr("Select key file (if any)..."), -1);
     m_ui->comboKeyFile->setCurrentIndex(0);
     m_ui->keyFileClearIcon->setVisible(false);
     m_keyFileComboEdited = false;
@@ -364,6 +364,13 @@ void DatabaseOpenWidget::browseKeyFile()
         fileDialog()->setNextForgetDialog();
     }
     QString filename = fileDialog()->getOpenFileName(this, tr("Select key file"), QString(), filters);
+
+    if (QFileInfo(filename).canonicalFilePath() == QFileInfo(m_filename).canonicalFilePath()) {
+        MessageBox::warning(this,  tr("Cannot use database file as key file"),
+            tr("You cannot use your database file as a key file.\nIf you do not have a key file, please leave the field empty."),
+            MessageBox::Button::Ok);
+        filename = "";
+    }
 
     if (!filename.isEmpty()) {
         m_ui->comboKeyFile->setCurrentIndex(-1);
